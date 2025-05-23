@@ -108,12 +108,12 @@ export function CaseDetail({ caseId }: CaseDetailProps) {
   if (loading) {
     return (
       <SidebarProvider>
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen bg-gray-50 w-full max-w-none">
           <ClientSidebar />
           <div className="flex-1 flex flex-col overflow-hidden">
             <DashboardHeader />
-            <div className="flex-1 overflow-auto">
-              <main className="p-8">
+            <div className="flex-1 overflow-auto w-full max-w-none">
+              <main className="p-4 md:p-8 w-full max-w-none">
                 <div className="flex justify-center items-center h-64">
                   <div className="animate-pulse">Loading case details...</div>
                 </div>
@@ -128,12 +128,12 @@ export function CaseDetail({ caseId }: CaseDetailProps) {
   if (!caseData) {
     return (
       <SidebarProvider>
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen bg-gray-50 w-full max-w-none">
           <ClientSidebar />
           <div className="flex-1 flex flex-col overflow-hidden">
             <DashboardHeader />
-            <div className="flex-1 overflow-auto">
-              <main className="p-8">
+            <div className="flex-1 overflow-auto w-full max-w-none">
+              <main className="p-4 md:p-8 w-full max-w-none">
                 <div className="bg-red-50 text-red-700 p-4 rounded-md">
                   Case not found
                   <Button variant="outline" className="ml-4" onClick={() => router.push("/my-cases")}>
@@ -150,12 +150,12 @@ export function CaseDetail({ caseId }: CaseDetailProps) {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-gray-50">
+      <div className="flex h-screen bg-gray-50 w-full max-w-none">
         <ClientSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <DashboardHeader />
-          <div className="flex-1 overflow-auto">
-            <main className="p-8">
+          <div className="flex-1 overflow-auto w-full max-w-none">
+            <main className="p-4 md:p-8 w-full max-w-none">
               <div className="flex items-center mb-6">
                 <Button
                   variant="ghost"
@@ -170,9 +170,9 @@ export function CaseDetail({ caseId }: CaseDetailProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="md:col-span-2">
-                  <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                <div className="md:col-span-2 w-full">
+                  <div className="bg-white rounded-lg shadow-sm border p-6 w-full">
                     <Form {...form}>
                       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
