@@ -64,12 +64,12 @@ export function MyCasesPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-gray-50">
+      <div className="flex h-screen bg-gray-50 w-full">
         <ClientSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <DashboardHeader />
-          <div className="flex-1 overflow-auto">
-            <main className="p-4 md:p-8 w-full flex-1">
+          <div className="flex-1 overflow-auto w-full">
+            <main className="p-4 md:p-6 lg:p-8 w-full max-w-none flex-1">
               <MyCasesHeader />
               <MyCasesFilter
                 searchQuery={searchQuery}
@@ -82,10 +82,10 @@ export function MyCasesPage() {
 
               {isLoading ? (
                 <div className="flex justify-center items-center h-64">
-                  <div className="animate-pulse">Loading cases...</div>
+                  <div className="animate-pulse text-gray-500">Loading cases...</div>
                 </div>
               ) : error ? (
-                <div className="bg-red-50 text-red-700 p-4 rounded-md">{error}</div>
+                <div className="bg-red-50 text-red-700 p-4 rounded-lg border border-red-200">{error}</div>
               ) : (
                 <MyCasesTable cases={filteredCases} />
               )}

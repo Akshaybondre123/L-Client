@@ -16,8 +16,8 @@ export function MyCasesTable({ cases }: MyCasesTableProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border overflow-hidden w-full">
-      <div className="overflow-x-auto w-full">
+    <div className="bg-white rounded-lg shadow-sm border overflow-hidden w-full max-w-none">
+      <div className="overflow-x-auto w-full max-w-none">
         {/* Desktop view */}
         <div className="hidden md:block">
           <table className="w-full min-w-full table-fixed">
@@ -66,33 +66,27 @@ export function MyCasesTable({ cases }: MyCasesTableProps) {
           {cases.map((caseItem) => (
             <div
               key={caseItem.id}
-              className="border-b p-4 cursor-pointer hover:bg-gray-50"
+              className="border-b border-gray-100 p-4 cursor-pointer hover:bg-gray-50 last:border-b-0"
               onClick={() => handleCaseClick(caseItem.id)}
             >
-              <div className="flex justify-between items-start mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full overflow-hidden">
-                    <img
-                      src={caseItem.clientAvatar || "/placeholder.svg"}
-                      alt={caseItem.clientName}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-medium">{caseItem.clientName}</h3>
-                    <p className="text-sm text-gray-500">Case: {caseItem.caseNumber}</p>
-                  </div>
+              <div className="flex items-start gap-3">
+                <div className="h-12 w-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                  <img
+                    src={caseItem.clientAvatar || "/placeholder.svg"}
+                    alt={caseItem.clientName}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
-                <StatusBadge status={caseItem.status} />
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-sm mt-3">
-                <div>
-                  <span className="text-gray-500">Lawyer:</span>
-                  <span className="ml-1">{caseItem.lawyerName}</span>
-                </div>
-                <div>
-                  <span className="text-gray-500">Created:</span>
-                  <span className="ml-1">{caseItem.createdAt}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="font-medium text-gray-900 truncate">{caseItem.clientName}</h3>
+                    <StatusBadge status={caseItem.status} />
+                  </div>
+                  <p className="text-sm text-gray-600 mb-2">Case: {caseItem.caseNumber}</p>
+                  <div className="flex justify-between text-sm text-gray-500">
+                    <span>Lawyer: {caseItem.lawyerName}</span>
+                    <span>Created: {caseItem.createdAt}</span>
+                  </div>
                 </div>
               </div>
             </div>
