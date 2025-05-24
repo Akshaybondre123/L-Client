@@ -122,7 +122,7 @@ export function DocumentsPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-screen bg-gray-50 overflow-hidden">
+      <div className="flex h-screen w-screen bg-white overflow-hidden">
         <ClientSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <DashboardHeader />

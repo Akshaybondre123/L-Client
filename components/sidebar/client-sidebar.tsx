@@ -90,12 +90,12 @@ export function ClientSidebar() {
       {isMobile && (
         <div
           id="client-sidebar"
-          className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${
+          className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-100 shadow-xl transform transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
           <div className="h-full overflow-y-auto">
-            <div className="py-8 px-6 border-b relative">
+            <div className="py-8 px-6 border-b border-gray-200 relative bg-gray-100">
               <button
                 type="button"
                 className="absolute top-8 right-6 p-1 rounded-md"
@@ -112,34 +112,34 @@ export function ClientSidebar() {
               </div>
             </div>
 
-            <nav className="py-4">
+            <nav className="py-4 bg-gray-100">
               <ul className="space-y-2">
                 <li>
-                  <Link href="/" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <LayoutGrid className="h-5 w-5" />
                     <span className="text-base">Dashboard</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/lawyers" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/lawyers" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <Users className="h-5 w-5" />
                     <span className="text-base">Lawyers</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/my-cases" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/my-cases" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <Briefcase className="h-5 w-5" />
                     <span className="text-base">My Cases</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/documents" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/documents" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <FileText className="h-5 w-5" />
                     <span className="text-base">Documents</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/chats" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/chats" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <MessageCircle className="h-5 w-5" />
                     <span className="text-base">Chats</span>
                   </Link>
@@ -147,32 +147,32 @@ export function ClientSidebar() {
                 <li>
                   <Link
                     href="/video-consultations"
-                    className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100"
+                    className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200"
                   >
                     <Video className="h-5 w-5" />
                     <span className="text-base">Video Consultations</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tokens" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/tokens" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <Ticket className="h-5 w-5" />
                     <span className="text-base">Tokens</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/qa" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/qa" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <HelpCircle className="h-5 w-5" />
                     <span className="text-base">Q&A</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/app-guide" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/app-guide" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <BookOpen className="h-5 w-5" />
                     <span className="text-base">App Guide</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/settings" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100">
+                  <Link href="/settings" className="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-200">
                     <Settings className="h-5 w-5" />
                     <span className="text-base">Settings</span>
                   </Link>
@@ -185,8 +185,8 @@ export function ClientSidebar() {
 
       {/* Desktop Sidebar */}
       {!isMobile && (
-        <Sidebar className="border-r border-gray-200 h-screen min-w-[256px] w-64 flex-shrink-0 bg-white">
-          <SidebarHeader className="py-8">
+        <Sidebar className="border-r border-gray-200 h-screen min-w-[256px] w-64 flex-shrink-0 bg-gray-100">
+          <SidebarHeader className="py-8 bg-gray-100">
             <div className="flex items-center gap-3 px-6">
               <div className="h-9 w-9 rounded-full bg-gray-900 flex items-center justify-center">
                 <div className="h-2.5 w-2.5 rounded-full bg-white"></div>
@@ -194,11 +194,15 @@ export function ClientSidebar() {
               <span className="font-semibold text-lg text-gray-900">Client Panel</span>
             </div>
           </SidebarHeader>
-          <SidebarContent className="space-y-2">
+          <SidebarContent className="space-y-2 bg-gray-100">
             <SidebarMenu>
               <SidebarMenuItem>
                 <Link href="/" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/"} tooltip="Dashboard" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/"}
+                    tooltip="Dashboard"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <LayoutGrid className="h-5 w-5" />
                     <span className="ml-3 text-base">Dashboard</span>
                   </SidebarMenuButton>
@@ -209,7 +213,7 @@ export function ClientSidebar() {
                   <SidebarMenuButton
                     isActive={pathname === "/lawyers" || pathname.startsWith("/lawyers/")}
                     tooltip="Lawyers"
-                    className="py-4 px-8"
+                    className="py-4 px-8 hover:bg-gray-200"
                   >
                     <Users className="h-5 w-5" />
                     <span className="ml-3 text-base">Lawyers</span>
@@ -218,7 +222,11 @@ export function ClientSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/my-cases" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/my-cases"} tooltip="My Cases" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/my-cases"}
+                    tooltip="My Cases"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <Briefcase className="h-5 w-5" />
                     <span className="ml-3 text-base">My Cases</span>
                   </SidebarMenuButton>
@@ -226,7 +234,11 @@ export function ClientSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/documents" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/documents"} tooltip="Documents" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/documents"}
+                    tooltip="Documents"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <FileText className="h-5 w-5" />
                     <span className="ml-3 text-base">Documents</span>
                   </SidebarMenuButton>
@@ -234,7 +246,11 @@ export function ClientSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/chats" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/chats"} tooltip="Chats" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/chats"}
+                    tooltip="Chats"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <MessageCircle className="h-5 w-5" />
                     <span className="ml-3 text-base">Chats</span>
                   </SidebarMenuButton>
@@ -245,7 +261,7 @@ export function ClientSidebar() {
                   <SidebarMenuButton
                     isActive={pathname === "/video-consultations"}
                     tooltip="Video Consultations"
-                    className="py-4 px-8"
+                    className="py-4 px-8 hover:bg-gray-200"
                   >
                     <Video className="h-5 w-5" />
                     <span className="ml-3 text-base">Video Consultations</span>
@@ -254,7 +270,11 @@ export function ClientSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/tokens" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/tokens"} tooltip="Tokens" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/tokens"}
+                    tooltip="Tokens"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <Ticket className="h-5 w-5" />
                     <span className="ml-3 text-base">Tokens</span>
                   </SidebarMenuButton>
@@ -262,7 +282,11 @@ export function ClientSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/qa" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/qa"} tooltip="Q&A" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/qa"}
+                    tooltip="Q&A"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <HelpCircle className="h-5 w-5" />
                     <span className="ml-3 text-base">Q&A</span>
                   </SidebarMenuButton>
@@ -270,7 +294,11 @@ export function ClientSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/app-guide" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/app-guide"} tooltip="App Guide" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/app-guide"}
+                    tooltip="App Guide"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <BookOpen className="h-5 w-5" />
                     <span className="ml-3 text-base">App Guide</span>
                   </SidebarMenuButton>
@@ -278,7 +306,11 @@ export function ClientSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/settings" passHref legacyBehavior>
-                  <SidebarMenuButton isActive={pathname === "/settings"} tooltip="Settings" className="py-4 px-8">
+                  <SidebarMenuButton
+                    isActive={pathname === "/settings"}
+                    tooltip="Settings"
+                    className="py-4 px-8 hover:bg-gray-200"
+                  >
                     <Settings className="h-5 w-5" />
                     <span className="ml-3 text-base">Settings</span>
                   </SidebarMenuButton>

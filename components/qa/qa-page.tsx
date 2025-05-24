@@ -101,7 +101,7 @@ export function QAPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-screen bg-gray-50">
+      <div className="flex h-screen w-screen bg-white">
         <ClientSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <DashboardHeader />
@@ -118,7 +118,7 @@ export function QAPage() {
                   <input
                     type="text"
                     placeholder="Search by title or category"
-                    className="w-full pl-10 pr-4 py-2 text-sm border rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-gray-200"
+                    className="w-full pl-10 pr-4 py-2 text-sm border border-gray-100 rounded-md bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-200 focus:bg-white"
                     onChange={(e) => setSearchQuery(e.target.value)}
                     value={searchQuery}
                   />
@@ -141,7 +141,7 @@ export function QAPage() {
                 <div className="overflow-x-auto w-full max-w-full">
                   <table className="w-full min-w-full">
                     <thead>
-                      <tr className="text-sm text-gray-500">
+                      <tr className="text-sm text-gray-500 bg-gray-50">
                         <th className="font-normal text-left py-3 px-4 border-b">Title</th>
                         <th className="font-normal text-left py-3 px-4 border-b">Category</th>
                         <th className="font-normal text-left py-3 px-4 border-b">Date Posted</th>
@@ -152,8 +152,11 @@ export function QAPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredQuestions.map((question) => (
-                        <tr key={question.id} className="hover:bg-gray-50">
+                      {filteredQuestions.map((question, index) => (
+                        <tr
+                          key={question.id}
+                          className={`hover:bg-gray-50 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                        >
                           <td className="py-4 px-4">{question.title}</td>
                           <td className="py-4 px-4">{question.category}</td>
                           <td className="py-4 px-4">{question.datePosted}</td>
@@ -189,8 +192,11 @@ export function QAPage() {
 
               {/* Mobile view */}
               <div className="md:hidden space-y-4">
-                {filteredQuestions.map((question) => (
-                  <div key={question.id} className="bg-white rounded-lg shadow-sm border p-4">
+                {filteredQuestions.map((question, index) => (
+                  <div
+                    key={question.id}
+                    className={`rounded-lg shadow-sm border p-4 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                  >
                     <div className="flex justify-between items-start mb-3">
                       <div>
                         <h3 className="font-medium">{question.title}</h3>

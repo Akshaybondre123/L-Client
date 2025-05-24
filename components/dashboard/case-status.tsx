@@ -6,23 +6,20 @@ export default function App() {
 }
 
 export function CaseStatus() {
-  // Pie slices data
+  // Adjusted slices with correct color and placement
   const slices = [
-    { label: "Active", percentage: 45, color: "#7e57c2" },
-    { label: "Pending", percentage: 45, color: "#f8a5c2" },
-    { label: "Closed", percentage: 10, color: "#4dd0e1" },
+    { label: "Active", percentage: 45, color: "#775DA6" },   // Left side
+    { label: "Pending", percentage: 45, color: "#FFB1B7" },  // Right side
+    { label: "Closed", percentage: 10, color: "#70B6C1" },
   ];
 
-  const cx = 50; // center x
-  const cy = 50; // center y
-  const radius = 50; // circle radius
+  const cx = 50;
+  const cy = 50;
+  const radius = 50;
 
-  // Function to convert degrees to radians
   const degToRad = (deg: number) => (deg * Math.PI) / 180;
 
-  // Function to calculate arc path for each slice
   const describeArc = (startAngle: number, endAngle: number) => {
-    // Convert angles from degrees to radians, SVG 0 degrees is at 3 o'clock, but we want 12 o'clock start, so shift -90 degrees
     const start = degToRad(startAngle - 90);
     const end = degToRad(endAngle - 90);
 
@@ -42,21 +39,23 @@ export function CaseStatus() {
     `;
   };
 
-  // For labels: place them at mid-angle of each slice, slightly inward
   const labelPosition = (startAngle: number, endAngle: number) => {
     const midAngle = (startAngle + endAngle) / 2;
     const rad = degToRad(midAngle - 90);
-    const labelRadius = radius * 0.65; // closer to center for better readability
+    const labelRadius = radius * 0.65;
     return {
       x: cx + labelRadius * Math.cos(rad),
       y: cy + labelRadius * Math.sin(rad),
     };
   };
 
-  let cumulativeAngle = 0; // keeps track of where each slice starts
+  let cumulativeAngle = 0;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6 font-sans max-w-sm mx-auto">
+    <div
+      className="rounded-lg shadow-sm border p-6 font-sans max-w-sm mx-auto"
+      style={{ backgroundColor: "#FFFFFF" }}
+    >
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <div>
@@ -69,13 +68,12 @@ export function CaseStatus() {
       </div>
 
       {/* Pie Chart */}
-      <div className="aspect-square max-w-[250px] mx-auto my-6">
+      <div className="aspect-square max-w-[211px] mx-auto my-6">
         <svg viewBox="0 0 100 100" className="w-full h-full">
           {slices.map(({ percentage, color }, i) => {
             const startAngle = cumulativeAngle;
-            const endAngle = cumulativeAngle + percentage * 3.6; // % to degrees
+            const endAngle = cumulativeAngle + percentage * 3.6;
             const path = describeArc(startAngle, endAngle);
-
             cumulativeAngle = endAngle;
 
             return (
@@ -97,6 +95,7 @@ export function CaseStatus() {
               const endAngle = labelAngle + percentage * 3.6;
               const { x, y } = labelPosition(startAngle, endAngle);
               labelAngle = endAngle;
+
               return (
                 <text
                   key={i}

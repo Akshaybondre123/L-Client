@@ -85,7 +85,7 @@ export function VideoConsultationsPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-screen bg-gray-50">
+      <div className="flex h-screen w-screen bg-white">
         <ClientSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <DashboardHeader />
@@ -102,7 +102,7 @@ export function VideoConsultationsPage() {
                   <input
                     type="text"
                     placeholder="Search by name"
-                    className="w-full pl-10 pr-4 py-2 text-sm border rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-gray-200"
+                    className="w-full pl-10 pr-4 py-2 text-sm border border-gray-100 rounded-md bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-200 focus:bg-white"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -122,7 +122,7 @@ export function VideoConsultationsPage() {
                 <div className="overflow-x-auto w-full max-w-full">
                   <table className="w-full min-w-full">
                     <thead>
-                      <tr className="text-sm text-gray-500">
+                      <tr className="text-sm text-gray-500 bg-gray-50">
                         <th className="font-normal text-left py-3 px-4 border-b">Lawyer Name</th>
                         <th className="font-normal text-left py-3 px-4 border-b">Scheduled date & time</th>
                         <th className="font-normal text-left py-3 px-4 border-b">Join Link</th>
@@ -132,8 +132,11 @@ export function VideoConsultationsPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredConsultations.map((consultation) => (
-                        <tr key={consultation.id} className="border-t hover:bg-gray-50">
+                      {filteredConsultations.map((consultation, index) => (
+                        <tr
+                          key={consultation.id}
+                          className={`border-t hover:bg-gray-50 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                        >
                           <td className="py-4 px-4">
                             <div className="flex items-center gap-2">
                               <div className="h-8 w-8 rounded-full overflow-hidden bg-gray-200">
@@ -192,8 +195,11 @@ export function VideoConsultationsPage() {
 
               {/* Mobile view */}
               <div className="md:hidden space-y-4">
-                {filteredConsultations.map((consultation) => (
-                  <div key={consultation.id} className="bg-white rounded-lg shadow-sm border p-4">
+                {filteredConsultations.map((consultation, index) => (
+                  <div
+                    key={consultation.id}
+                    className={`rounded-lg shadow-sm border p-4 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                  >
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
                         <div className="h-10 w-10 rounded-full overflow-hidden bg-gray-200">

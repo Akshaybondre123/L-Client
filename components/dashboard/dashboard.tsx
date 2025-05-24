@@ -13,7 +13,7 @@ export default function Dashboard() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-gray-50">
+      <div className="flex h-screen bg-white">
         <ClientSidebar />
         <div className="flex-1 flex flex-col overflow-hidden w-full">
           <DashboardHeader />

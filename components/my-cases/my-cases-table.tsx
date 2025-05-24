@@ -31,10 +31,10 @@ export function MyCasesTable({ cases }: MyCasesTableProps) {
               </tr>
             </thead>
             <tbody>
-              {cases.map((caseItem) => (
+              {cases.map((caseItem, index) => (
                 <tr
                   key={caseItem.id}
-                  className="cursor-pointer hover:bg-gray-100"
+                  className={`cursor-pointer hover:bg-gray-50 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
                   onClick={() => handleCaseClick(caseItem.id)}
                 >
                   <td className="py-4 px-6">{caseItem.caseNumber}</td>
@@ -63,10 +63,12 @@ export function MyCasesTable({ cases }: MyCasesTableProps) {
 
         {/* Mobile view */}
         <div className="md:hidden">
-          {cases.map((caseItem) => (
+          {cases.map((caseItem, index) => (
             <div
               key={caseItem.id}
-              className="border-b border-gray-100 p-4 cursor-pointer hover:bg-gray-50 last:border-b-0"
+              className={`border-b border-gray-100 p-4 cursor-pointer hover:bg-gray-50 last:border-b-0 ${
+                index % 2 === 0 ? "bg-gray-100" : "bg-white"
+              }`}
               onClick={() => handleCaseClick(caseItem.id)}
             >
               <div className="flex items-start gap-3">

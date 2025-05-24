@@ -1,4 +1,4 @@
-import { MoreHorizontal, Download } from "lucide-react"
+import { MoreHorizontal, Download } from "lucide-react";
 
 export function ConsultationHistory() {
   const consultations = [
@@ -38,7 +38,7 @@ export function ConsultationHistory() {
       date: "11/0/2024",
       notes: "Legal explanation or advice given",
     },
-  ]
+  ];
 
   return (
     <div className="bg-white rounded-lg shadow-sm border">
@@ -55,21 +55,24 @@ export function ConsultationHistory() {
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="text-sm text-gray-500">
-              <th className="font-normal text-left py-3 px-6 border-b">No</th>
-              <th className="font-normal text-left py-3 px-6 border-b">Lawyer name</th>
-              <th className="font-normal text-left py-3 px-6 border-b">Date of consultation</th>
-              <th className="font-normal text-left py-3 px-6 border-b">Notes or summary</th>
-              <th className="font-normal text-left py-3 px-6 border-b">Download</th>
+            <tr className="text-sm text-gray-500 bg-gray-50">
+              <th className="font-normal text-left py-1.5 px-4 border-b">No</th>
+              <th className="font-normal text-left py-1.5 px-4 border-b">Lawyer name</th>
+              <th className="font-normal text-left py-1.5 px-4 border-b">Date of consultation</th>
+              <th className="font-normal text-left py-1.5 px-4 border-b">Notes or summary</th>
+              <th className="font-normal text-left py-1.5 px-4 border-b">Download</th>
             </tr>
           </thead>
           <tbody>
             {consultations.map((consultation, index) => (
-              <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : ""}>
-                <td className="py-4 px-6">{index + 1}</td>
-                <td className="py-4 px-6">
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full overflow-hidden">
+              <tr
+                key={index}
+                className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+              >
+                <td className="py-2.5 px-4">{index + 1}</td>
+                <td className="py-2.5 px-4">
+                  <div className="flex items-center gap-2">
+                    <div className="h-6 w-6 rounded-full overflow-hidden">
                       <img
                         src={consultation.lawyer.avatar || "/placeholder.svg"}
                         alt={consultation.lawyer.name}
@@ -79,10 +82,10 @@ export function ConsultationHistory() {
                     <span>{consultation.lawyer.name}</span>
                   </div>
                 </td>
-                <td className="py-4 px-6">{consultation.date}</td>
-                <td className="py-4 px-6 text-gray-600">{consultation.notes}</td>
-                <td className="py-4 px-6 text-center">
-                  <button className="text-gray-400 hover:text-gray-600 rounded-full p-1 hover:bg-gray-100">
+                <td className="py-2.5 px-4">{consultation.date}</td>
+                <td className="py-2.5 px-4 text-gray-600">{consultation.notes}</td>
+                <td className="py-2.5 px-4 text-center">
+                  <button className="text-gray-400 hover:text-gray-600 rounded-full p-0.5 hover:bg-gray-100">
                     <Download size={18} />
                   </button>
                 </td>
@@ -92,5 +95,5 @@ export function ConsultationHistory() {
         </table>
       </div>
     </div>
-  )
+  );
 }

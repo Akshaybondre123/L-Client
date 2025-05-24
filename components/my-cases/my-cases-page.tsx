@@ -64,7 +64,7 @@ export function MyCasesPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-gray-50 w-full">
+      <div className="flex h-screen bg-white w-full">
         <ClientSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <DashboardHeader />

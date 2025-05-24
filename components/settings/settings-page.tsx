@@ -46,7 +46,7 @@ export function SettingsPage() {
   const profileForm = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      username: "Anima agr",
+      username: "Anima Agr",
       email: "xxxxxxxx",
       phone: "123 XXXXXXXXXX",
       address: "102-304 Sajik-ro-3-gil 23 Jongno-gu",
@@ -109,24 +109,29 @@ export function SettingsPage() {
           <DashboardHeader />
           <div className="flex-1 overflow-auto">
             <main className="p-8 w-full overflow-x-hidden flex-1">
-              <div className="flex flex-col md:flex-row gap-8 w-full">
+              <div className="flex flex-col lg:flex-row gap-8 w-full">
                 {/* Profile Card */}
-                <div className="w-full md:w-1/3 lg:w-1/4">
-                  <div className="bg-white rounded-lg shadow-sm border p-6">
-                    <h2 className="text-2xl font-semibold mb-4">Hi Agr,</h2>
-                    <div className="flex flex-col items-center mb-6">
-                      <div className="h-20 w-20 rounded-full overflow-hidden mb-3">
+                <div className="w-full lg:w-1/3">
+                  <div className="rounded-lg shadow-sm border-gray-200 border p-6 bg-white">
+                    <h2 className="text-2xl font-semibold mb-6">Hi Agr,</h2>
+
+                    {/* Profile Photo and Name Section */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="h-12 w-12 rounded-full overflow-hidden flex-shrink-0">
                         <img
-                          src="/placeholder.svg?height=80&width=80"
+                          src="/placeholder.svg?height=48&width=48"
                           alt="Profile"
                           className="h-full w-full object-cover"
                         />
                       </div>
-                      <h3 className="font-medium">Anima Agr</h3>
-                      <p className="text-sm text-gray-500">Lioxxxxx</p>
+                      <div>
+                        <h3 className="font-medium text-lg">Anima Agr</h3>
+                        <p className="text-sm text-gray-600">Lioxxxxx</p>
+                      </div>
                     </div>
 
-                    <div className="space-y-3">
+                    {/* Contact Information */}
+                    <div className="space-y-3 mb-6">
                       <div className="flex items-center gap-3 text-sm">
                         <Mail className="h-4 w-4 text-gray-500" />
                         <span>xxxxxxxxxx@gmail.com</span>
@@ -141,7 +146,8 @@ export function SettingsPage() {
                       </div>
                     </div>
 
-                    <div className="mt-6 pt-6 border-t">
+                    {/* Notification Toggle */}
+                    <div className="pt-6 border-t">
                       <div className="flex items-center justify-between">
                         <span className="font-medium">Notification</span>
                         <Switch
@@ -159,14 +165,14 @@ export function SettingsPage() {
                 </div>
 
                 {/* Settings Forms */}
-                <div className="w-full md:flex-1 min-w-0">
+                <div className="w-full lg:flex-1 min-w-0">
                   <Tabs defaultValue="profile" value={activeTab} onValueChange={setActiveTab}>
                     <TabsList className="grid w-full grid-cols-2 mb-6">
                       <TabsTrigger value="profile">Update Profile</TabsTrigger>
                       <TabsTrigger value="password">Change Password</TabsTrigger>
                     </TabsList>
 
-                    <TabsContent value="profile" className="bg-white rounded-lg shadow-sm border p-6">
+                    <TabsContent value="profile" className="space-y-6">
                       <Form {...profileForm}>
                         <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-6">
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -191,7 +197,11 @@ export function SettingsPage() {
                                 <FormItem>
                                   <FormLabel>Email</FormLabel>
                                   <FormControl>
-                                    <Input {...field} />
+                                    <Input
+                                      placeholder="Enter your email"
+                                      className="placeholder:text-gray-100"
+                                      {...field}
+                                    />
                                   </FormControl>
                                   <FormMessage />
                                 </FormItem>
@@ -234,7 +244,7 @@ export function SettingsPage() {
                       </Form>
                     </TabsContent>
 
-                    <TabsContent value="password" className="bg-white rounded-lg shadow-sm border p-6">
+                    <TabsContent value="password" className="space-y-6">
                       <Form {...passwordForm}>
                         <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-6">
                           <FormField

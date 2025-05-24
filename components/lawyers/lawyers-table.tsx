@@ -35,7 +35,7 @@ export function LawyersTable({ lawyers }: LawyersTableProps) {
               {lawyers.map((lawyer, index) => (
                 <tr
                   key={lawyer.id}
-                  className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} cursor-pointer hover:bg-gray-100`}
+                  className={`cursor-pointer hover:bg-gray-50 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
                   onClick={() => handleLawyerClick(lawyer.id)}
                 >
                   <td className="py-4 px-6">
@@ -68,7 +68,7 @@ export function LawyersTable({ lawyers }: LawyersTableProps) {
           {lawyers.map((lawyer, index) => (
             <div
               key={lawyer.id}
-              className="border-b p-4 cursor-pointer hover:bg-gray-50"
+              className={`border-b p-4 cursor-pointer hover:bg-gray-50 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
               onClick={() => handleLawyerClick(lawyer.id)}
             >
               <div className="flex items-center gap-3 mb-2">

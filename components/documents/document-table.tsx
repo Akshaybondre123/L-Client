@@ -48,8 +48,8 @@ export function DocumentTable({ documents, onView, onEdit, onHistory }: Document
               </tr>
             </thead>
             <tbody>
-              {documents.map((document) => (
-                <tr key={document.id} className={document.id % 2 === 0 ? "bg-gray-50" : ""}>
+              {documents.map((document, index) => (
+                <tr key={document.id} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-2">
                       <span>{getFileIcon(document.name)}</span>
@@ -103,8 +103,8 @@ export function DocumentTable({ documents, onView, onEdit, onHistory }: Document
 
         {/* Mobile view */}
         <div className="md:hidden">
-          {documents.map((document) => (
-            <div key={document.id} className="border-b p-4">
+          {documents.map((document, index) => (
+            <div key={document.id} className={`border-b p-4 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}>
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">{getFileIcon(document.name)}</span>

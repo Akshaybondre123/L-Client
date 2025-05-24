@@ -117,7 +117,7 @@ export function TokenHistoryPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-screen bg-gray-50">
+      <div className="flex h-screen w-screen bg-white">
         <ClientSidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
           <DashboardHeader />
@@ -136,7 +136,7 @@ export function TokenHistoryPage() {
                       {...register("search")}
                       type="text"
                       placeholder="Search by name"
-                      className="w-full pl-10 pr-4 py-2 text-sm border rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-gray-200"
+                      className="w-full pl-10 pr-4 py-2 text-sm border border-gray-100 rounded-md bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-200 focus:bg-white"
                       onChange={(e) => setSearchQuery(e.target.value)}
                       value={searchQuery}
                     />
@@ -157,7 +157,7 @@ export function TokenHistoryPage() {
                 <div className="overflow-x-auto w-full max-w-full">
                   <table className="w-full min-w-full">
                     <thead>
-                      <tr className="text-sm text-gray-500">
+                      <tr className="text-sm text-gray-500 bg-gray-50">
                         <th className="font-normal text-left py-3 px-4 border-b">Date</th>
                         <th className="font-normal text-left py-3 px-4 border-b">Type</th>
                         <th className="font-normal text-left py-3 px-4 border-b">Description</th>
@@ -167,8 +167,11 @@ export function TokenHistoryPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredTransactions.map((transaction) => (
-                        <tr key={transaction.id} className="hover:bg-gray-50">
+                      {filteredTransactions.map((transaction, index) => (
+                        <tr
+                          key={transaction.id}
+                          className={`hover:bg-gray-50 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                        >
                           <td className="py-4 px-4">{transaction.date}</td>
                           <td className="py-4 px-4">{transaction.type}</td>
                           <td className="py-4 px-4">{transaction.description}</td>
@@ -186,8 +189,11 @@ export function TokenHistoryPage() {
 
               {/* Mobile view */}
               <div className="md:hidden space-y-4">
-                {filteredTransactions.map((transaction) => (
-                  <div key={transaction.id} className="bg-white rounded-lg shadow-sm border p-4">
+                {filteredTransactions.map((transaction, index) => (
+                  <div
+                    key={transaction.id}
+                    className={`rounded-lg shadow-sm border p-4 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                  >
                     <div className="flex justify-between items-start mb-3">
                       <div>
                         <h3 className="font-medium">{transaction.type}</h3>

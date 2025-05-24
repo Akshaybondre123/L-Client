@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Settings, MessageSquare, Bell, ChevronDown, User, Lock, LogOut } from "lucide-react"
+import { Settings, MessageSquare, Bell, ChevronDown, User, Lock, LogOut, Search } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useIsMobile } from "@/hooks/use-mobile"
 
@@ -27,10 +27,11 @@ export function DashboardHeader() {
     <header className="bg-white border-b border-gray-200 py-4 px-6 flex items-center justify-between">
       {/* Search bar - hidden on mobile to match the design */}
       <div className={`relative ${isMobile ? "hidden" : "block w-full max-w-md"}`}>
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
         <input
           type="text"
           placeholder="Search for anything..."
-          className="w-full pl-10 pr-4 py-2 text-sm border rounded-md bg-gray-50 focus:outline-none focus:ring-1 focus:ring-gray-200"
+          className="w-full pl-10 pr-4 py-2 text-sm border border-gray-100 rounded-md bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-200 focus:bg-white"
         />
       </div>
 
