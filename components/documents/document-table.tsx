@@ -1,5 +1,6 @@
 "use client"
 
+import { useRef, useEffect } from "react"
 import { Eye, Edit, Clock } from "lucide-react"
 import type { Document } from "@/types/document"
 import { DocumentStatusBadge } from "@/components/ui/document-status-badge"
@@ -13,6 +14,54 @@ interface DocumentTableProps {
 }
 
 export function DocumentTable({ documents, onView, onEdit, onHistory }: DocumentTableProps) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    let isDown = false
+    let startX: number
+    let scrollLeft: number
+
+    const handleMouseDown = (e: MouseEvent) => {
+      isDown = true
+      container.classList.add("cursor-grabbing")
+      startX = e.pageX - container.offsetLeft
+      scrollLeft = container.scrollLeft
+    }
+
+    const handleMouseLeave = () => {
+      isDown = false
+      container.classList.remove("cursor-grabbing")
+    }
+
+    const handleMouseUp = () => {
+      isDown = false
+      container.classList.remove("cursor-grabbing")
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDown) return
+      e.preventDefault()
+      const x = e.pageX - container.offsetLeft
+      const walk = (x - startX) * 1.5 // Adjust scroll speed here
+      container.scrollLeft = scrollLeft - walk
+    }
+
+    container.addEventListener("mousedown", handleMouseDown)
+    container.addEventListener("mouseleave", handleMouseLeave)
+    container.addEventListener("mouseup", handleMouseUp)
+    container.addEventListener("mousemove", handleMouseMove)
+
+    return () => {
+      container.removeEventListener("mousedown", handleMouseDown)
+      container.removeEventListener("mouseleave", handleMouseLeave)
+      container.removeEventListener("mouseup", handleMouseUp)
+      container.removeEventListener("mousemove", handleMouseMove)
+    }
+  }, [])
+
   const getFileIcon = (fileName: string) => {
     const extension = fileName.split(".").pop()?.toLowerCase()
 
@@ -33,10 +82,10 @@ export function DocumentTable({ documents, onView, onEdit, onHistory }: Document
 
   return (
     <div className="bg-white rounded-lg shadow-sm border overflow-hidden max-w-full">
-      <div className="overflow-x-auto w-full">
+      <div ref={scrollRef} className="overflow-x-auto w-full cursor-grab">
         {/* Desktop view */}
         <div className="hidden md:block">
-          <table className="w-full table-auto">
+          <table className="w-full table-auto min-w-[800px]">
             <thead>
               <tr className="text-sm text-gray-500 bg-gray-50">
                 <th className="font-normal text-left py-3 px-6 border-b">Document Name</th>
@@ -66,31 +115,13 @@ export function DocumentTable({ documents, onView, onEdit, onHistory }: Document
                   </td>
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => onView(document)}
-                        title="View Document"
-                      >
+                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onView(document)}>
                         <Eye className="h-4 w-4" />
                       </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => onEdit(document)}
-                        title="Edit Document"
-                      >
+                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onEdit(document)}>
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => onHistory(document)}
-                        title="Document History"
-                      >
+                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onHistory(document)}>
                         <Clock className="h-4 w-4" />
                       </Button>
                     </div>

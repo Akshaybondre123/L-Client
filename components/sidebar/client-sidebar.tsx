@@ -185,7 +185,7 @@ export function ClientSidebar() {
 
       {/* Desktop Sidebar */}
       {!isMobile && (
-        <Sidebar className="border-r border-gray-200 h-screen min-w-[256px] w-64 flex-shrink-0 bg-gray-100">
+        <Sidebar className="border-r border-gray-200 h-screen min-w-[260px] w-64 flex-shrink-0 bg-gray-100">
           <SidebarHeader className="py-8 bg-gray-100">
             <div className="flex items-center gap-3 px-6">
               <div className="h-9 w-9 rounded-full bg-gray-900 flex items-center justify-center">

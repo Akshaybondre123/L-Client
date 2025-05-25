@@ -34,9 +34,9 @@ export function MyCasesFilter({
   }
 
   return (
-    <div className={`flex flex-col gap-4 mb-6 w-full ${className || ""}`}>
-      {/* Search Bar */}
-      <div className="relative w-full">
+    <div className={`flex items-center justify-between gap-4 mb-6 w-full flex-wrap ${className || ""}`}>
+      {/* Search Bar (Left) */}
+      <div className="relative w-full sm:w-1/2 lg:w-1/3">
         <form onChange={handleSubmit(onSubmit)}>
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
           <input
@@ -50,8 +50,8 @@ export function MyCasesFilter({
         </form>
       </div>
 
-      {/* Filter Controls */}
-      <div className="flex gap-3">
+      {/* Filter Controls (Right side) */}
+      <div className="flex gap-3 items-center justify-end w-full sm:w-auto mt-4 sm:mt-0">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="flex items-center gap-2 bg-white border-gray-200 px-4 py-2 h-10">

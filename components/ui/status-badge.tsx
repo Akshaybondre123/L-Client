@@ -31,7 +31,14 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
   const displayStatus = statusKey === "in progress" ? "In Progress" : status.charAt(0).toUpperCase() + status.slice(1)
 
   return (
-    <span className={cn("px-3 py-1 rounded-full text-xs font-medium", statusStyle.color, statusStyle.bg, className)}>
+    <span
+      className={cn(
+        "inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap",
+        statusStyle.color,
+        statusStyle.bg,
+        className,
+      )}
+    >
       {displayStatus}
     </span>
   )

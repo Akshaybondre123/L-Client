@@ -1,11 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
+
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -17,11 +17,26 @@ import { ArrowLeft, AlertCircle } from "lucide-react"
 import type { Document } from "@/types/document"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
-// Form validation schema
+// Validation schema
+const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
+const ACCEPTED_FILE_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/jpeg",
+  "image/png",
+]
+
 const documentFormSchema = z.object({
   documentType: z.string().min(1, { message: "Document type is required" }),
   summary: z.string().min(1, { message: "Summary is required" }),
-  file: z.any().optional(),
+  file: z
+    .any()
+    .refine((file: File | undefined) => file !== undefined, { message: "File is required" })
+    .refine((file: File) => file?.size <= MAX_FILE_SIZE, { message: "Max file size is 5MB" })
+    .refine((file: File) => ACCEPTED_FILE_TYPES.includes(file?.type), {
+      message: "Unsupported file type",
+    }),
 })
 
 type DocumentFormValues = z.infer<typeof documentFormSchema>
@@ -34,43 +49,34 @@ interface AddDocumentFormProps {
 }
 
 export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false, error = null }: AddDocumentFormProps) {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
-
-  // State to toggle summary textarea visibility
   const [showSummary, setShowSummary] = useState(false)
 
   const form = useForm<DocumentFormValues>({
     resolver: zodResolver(documentFormSchema),
     defaultValues: {
       documentType: "",
-      summary: "", // Start with empty summary, or change as needed
+      summary: "",
+      file: undefined,
     },
   })
 
+  const selectedFile = form.watch("file")
+
   const onSubmit = (values: DocumentFormValues) => {
-    // Create a new document object
     const newDocument: Document = {
       id: Math.random().toString(),
-      name: selectedFile ? selectedFile.name : "Document",
+      name: values.file.name,
       uploadedBy: "Client",
       uploadDate: new Date().toLocaleDateString("en-GB"),
       summary: values.summary,
       status: "Pending",
-      fileType: selectedFile ? selectedFile.type : "",
-      fileSize: selectedFile ? selectedFile.size : 0,
-      fileUrl: selectedFile ? URL.createObjectURL(selectedFile) : undefined,
+      fileType: values.file.type,
+      fileSize: values.file.size,
+      fileUrl: URL.createObjectURL(values.file),
     }
 
-    // Add the new document
     onAddDocument(newDocument)
-  }
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      setSelectedFile(file)
-    }
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -86,9 +92,9 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setIsDragging(false)
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0]
-      setSelectedFile(file)
+    const file = e.dataTransfer.files[0]
+    if (file) {
+      form.setValue("file", file, { shouldValidate: true })
     }
   }
 
@@ -101,7 +107,6 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
           <div className="flex-1 overflow-auto">
             <main className="p-8 w-full max-w-3xl">
               <div className="flex items-center gap-3 mb-6">
-                {/* Back button */}
                 <button
                   onClick={() => window.history.back()}
                   className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 focus:outline-none"
@@ -124,8 +129,9 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
               )}
 
               <div className="bg-white rounded-lg shadow-sm border p-6 w-full">
-                <Form {...form} className="w-full">
+                <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-lg">
+                    {/* Document Type */}
                     <FormField
                       control={form.control}
                       name="documentType"
@@ -152,6 +158,7 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
                       )}
                     />
 
+                    {/* File Upload */}
                     <FormField
                       control={form.control}
                       name="file"
@@ -172,11 +179,13 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
                                 id="file-upload"
                                 type="file"
                                 className="hidden"
+                                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt,.xlsx,.mp3,.mp4"
                                 onChange={(e) => {
-                                  handleFileChange(e)
-                                  field.onChange(e.target.files)
+                                  const file = e.target.files?.[0]
+                                  if (file) {
+                                    form.setValue("file", file, { shouldValidate: true })
+                                  }
                                 }}
-                                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                               />
                               <svg
                                 className="mx-auto h-12 w-12 text-gray-400"
@@ -192,14 +201,12 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
                                   strokeLinejoin="round"
                                 />
                               </svg>
-                              <div className="mt-2 flex text-sm text-gray-600">
-                                <span className="relative rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
-                                  Upload file here
-                                </span>
+                              <div className="mt-2 text-sm text-gray-600">
+                                <span className="text-blue-600 font-medium">Upload file here</span>
                               </div>
-                              <p className="text-xs text-gray-500 mt-1">
-                                (pdf, doc, jpg, png, max 5MB) supported file extension (PDF, DOC)
-                              </p>
+<p className="text-xs text-gray-500 mt-1">
+  Supported file types: PDF, DOC, DOCX, JPG, JPEG, PNG, TXT, XLSX, MP3, MP4 (Max 5MB)
+</p>
                               {selectedFile && (
                                 <div className="mt-3 text-sm text-gray-500">
                                   Selected: <span className="font-medium">{selectedFile.name}</span> (
@@ -213,6 +220,7 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
                       )}
                     />
 
+                    {/* Summary */}
                     <FormField
                       control={form.control}
                       name="summary"
@@ -221,12 +229,11 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
                           <FormLabel
                             onClick={() => {
                               if (!showSummary) {
-                                // Optionally, set a default generated summary on first reveal
                                 if (!field.value) {
                                   field.onChange("Property sale agreement summary")
                                 }
+                                setShowSummary(true)
                               }
-                              setShowSummary(true)
                             }}
                             className="cursor-pointer text-blue-600 hover:underline select-none"
                           >
@@ -246,6 +253,7 @@ export function AddDocumentForm({ onAddDocument, onCancel, isSubmitting = false,
                       )}
                     />
 
+                    {/* Buttons */}
                     <div className="flex justify-start gap-4 max-w-md">
                       <Button type="submit" className="bg-black hover:bg-gray-800" disabled={isSubmitting}>
                         {isSubmitting ? "Submitting..." : "Submit"}
